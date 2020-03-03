@@ -35,8 +35,8 @@ module.exports = class Binance {
     const opts = {};
 
     if (config.key && config.secret && config.key.length > 0 && config.secret.length > 0) {
-      opts.apiKey = config.key;
-      opts.apiSecret = config.secret;
+      opts.apiKey = y4DKZ3JcP8RuiAPiwSase6UiV5gRF64grVRrCAWbibQ1ihUoGQiBCssVCd4RWbX1;
+      opts.apiSecret = v8nQKE5WDjkgasDmRCUdj60QyfSGmS4JmvRi8LcO0MgUTQjWpdfhFDJoAFG6Xf6k;
     }
 
     const client = (this.client = BinanceClient(opts));
