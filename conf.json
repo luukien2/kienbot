@@ -1,0 +1,114 @@
+{
+    "exchanges": {
+        "bitfinex": {
+            "key": null,
+            "secret": null
+        },
+        "bitmex": {
+            "key": null,
+            "secret": null
+        },
+        "binance": {
+            "key": 4DKZ3JcP8RuiAPiwSase6UiV5gRF64grVRrCAWbibQ1ihUoGQiBCssVCd4RWbX1,
+            "secret": 8nQKE5WDjkgasDmRCUdj60QyfSGmS4JmvRi8LcO0MgUTQjWpdfhFDJoAFG6Xf6k
+        },
+        "binance_futures": {
+            "key": null,
+            "secret": null
+        },
+        "coinbase_pro": {
+            "key": null,
+            "secret": null,
+            "passphrase": null
+        },
+        "bybit": {
+            "key": null,
+            "secret": null
+        },
+        "ftx": {
+            "key": null,
+            "secret": null
+        }
+    },
+    "notify": {
+        "slack": {
+            "webhook": null,
+            "name": "crypto-bot",
+            "icon_emoji": ":ghost:"
+        },
+        "mail": {
+            "to": "example@example.de",
+            "username": "foo@foo.de",
+            "password": "bar",
+            "server": null,
+            "port": 465
+        },
+        "telegram" : {
+            "chat_id": -100140526039,
+            "token": 1079258072:AAHkQCLoM2d0lMPhRZeSJi1cFsNtWxttKd
+        }
+    },
+    "webserver": {
+        "ip": "0.0.0.0",
+        "port": 8080,
+        "username": null,
+        "password": null
+    },
+    "tick": {
+        "default": null,
+        "warmup": null,
+        "signal": null,
+        "watchdog": null,
+        "ordering": null,
+        "pair_signal_concurrency": null
+    },
+    "order": {
+        "retry": null,
+        "retry_ms": null
+    },
+    "desks": [
+        {
+            "name": "Top 10",
+            "grid": 4,
+            "intervals": [15, 60],
+            "height": 400,
+            "pairs": [
+                {
+                    "symbol": "bitmex:XBTUSD"
+                },
+                {
+                    "symbol": "bitmex:ETHUSD"
+                },
+                {
+                    "symbol": "binance:ETHUSDT"
+                },
+                {
+                    "symbol": "binance:LTCUSDT"
+                },
+                {
+                    "symbol": "binance:XRPUSDT"
+                },
+                {
+                    "symbol": "binance:EOSUSDT"
+                }
+            ]
+        },
+        {
+            "name": "Stock",
+            "grid": 3,
+            "intervals": [1440],
+            "height": 400,
+            "pairs": [
+                {
+                    "symbol": "SPY"
+                },
+                {
+                    "symbol": "TVC:NDX"
+                },
+                {
+                    "symbol": "DJI"
+                }
+            ]
+        }
+    ]
+}
