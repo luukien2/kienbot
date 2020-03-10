@@ -118,8 +118,8 @@
     },
     "telegram": {
         "enabled": true,
-        "token": "your_telegram_token",
-        "chat_id": "your_telegram_chat_id"
+        "token": " -10014052603",
+        "chat_id": "1079258072:AAHkQCLoM2d0lMPhRZeSJi1cFsNtWxttKd"
     },
     "api_server": {
         "enabled": false,
