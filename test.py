@@ -21,7 +21,7 @@ class CunConTrade(IStrategy):
 
     ticker_interval = '15m'
 
-    trailing_stop = true
+    trailing_stop = True
     trailing_stop_positive = 0.06
     trailing_stop_positive_offset = 0.09
 
@@ -54,49 +54,49 @@ class CunConTrade(IStrategy):
         """
         return [(f"{self.config['stake_currency']}/USDT", self.ticker_interval)]
                  
-def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-    dataframe['adx'] = ta.ADX(dataframe, timeperiod=14)
-    dataframe['short'] = ta.SMA(dataframe, timeperiod=3)
-    dataframe['long'] = ta.SMA(dataframe, timeperiod=6)
-    dataframe['ao'] = qtpylib.awesome_oscillator(dataframe)
-    macd = ta.MACD(dataframe)
-    dataframe['macd'] = macd['macd']
-    dataframe['macdsignal'] = macd['macdsignal']
-    dataframe['macdhist'] = macd['macdhist']
-    bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=20, stds=2)
-    dataframe['bb_low'] = bollinger['lower']
-    dataframe['bb_mid'] = bollinger['mid']
-    dataframe['bb_upper'] = bollinger['upper']
-    # %B = (Current Price - Lower Band) / (Upper Band - Lower Band)
-    dataframe['bb_perc'] = (dataframe['close'] - dataframe['bb_low']) / (dataframe['bb_upper'] - dataframe['bb_low'])
-    return dataframe
-def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-    dataframe.loc[
-        (
-                ((dataframe['adx'] > 25) &
-                qtpylib.crossed_above(dataframe['short'], dataframe['long'])) |
-                (
-                    (dataframe['macd'] > 0) &
-                    ((dataframe['macd'] > dataframe['macdsignal']) |
-                     ((dataframe['ao'] > 0) &
-                    (dataframe['ao'].shift() < 0))) |
-                    (dataframe['bb_perc'] < 0.1)
-                )
-        ),
-        'buy'] = 1
-    return dataframe
-def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-    dataframe.loc[
-        (
-            ((dataframe['adx'] < 25) &
-                (qtpylib.crossed_above(dataframe['long'], dataframe['short']))) |
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe['adx'] = ta.ADX(dataframe, timeperiod=14)
+        dataframe['short'] = ta.SMA(dataframe, timeperiod=3)
+        dataframe['long'] = ta.SMA(dataframe, timeperiod=6)
+        dataframe['ao'] = qtpylib.awesome_oscillator(dataframe)
+        macd = ta.MACD(dataframe)
+        dataframe['macd'] = macd['macd']
+        dataframe['macdsignal'] = macd['macdsignal']
+        dataframe['macdhist'] = macd['macdhist']
+        bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=20, stds=2)
+        dataframe['bb_low'] = bollinger['lower']
+        dataframe['bb_mid'] = bollinger['mid']
+        dataframe['bb_upper'] = bollinger['upper']
+        # %B = (Current Price - Lower Band) / (Upper Band - Lower Band)
+        dataframe['bb_perc'] = (dataframe['close'] - dataframe['bb_low']) / (dataframe['bb_upper'] - dataframe['bb_low'])
+        return dataframe
+    def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe.loc[
             (
-                    (dataframe['macd'] < 0) &
-                    ((dataframe['macd'] < dataframe['macdsignal']) |
-                     ((dataframe['ao'] < 0) &
-                      (dataframe['ao'].shift() > 0)))
-                    (dataframe['close'] > dataframe['high'].rolling(60).max().shift())
-            )
-        ),
-        'sell'] = 1
-    return dataframe
+                    ((dataframe['adx'] > 25) &
+                    qtpylib.crossed_above(dataframe['short'], dataframe['long'])) |
+                    (
+                        (dataframe['macd'] > 0) &
+                        ((dataframe['macd'] > dataframe['macdsignal']) |
+                         ((dataframe['ao'] > 0) &
+                        (dataframe['ao'].shift() < 0))) |
+                        (dataframe['bb_perc'] < 0.1)
+                    )
+            ),
+            'buy'] = 1
+        return dataframe
+    def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe.loc[
+            (
+                ((dataframe['adx'] < 25) &
+                    (qtpylib.crossed_above(dataframe['long'], dataframe['short']))) |
+                (
+                        (dataframe['macd'] < 0) &
+                        ((dataframe['macd'] < dataframe['macdsignal']) |
+                         ((dataframe['ao'] < 0) &
+                          (dataframe['ao'].shift() > 0)))
+                        (dataframe['close'] > dataframe['high'].rolling(60).max().shift())
+                  )
+               ),
+               'sell'] = 1
+           return dataframe
